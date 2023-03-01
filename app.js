@@ -3,6 +3,23 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'library.db'
+});
+
+// async IIFE
+(async () => {
+  await sequelize.sync({ force: true });
+  try {
+    await sequelize.authenticate();
+    console.log('Connection to the database successful!');
+  } catch (error) {
+    console.error('Error connecting to the database: ', error);
+  }
+})();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
