@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const getBookModel = require('../models/book')
+const getBookModel = require('../models').Book;
 
 /* GET home page. */
 router.get('/', async ( req, res, next ) => {
