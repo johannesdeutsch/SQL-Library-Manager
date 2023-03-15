@@ -41,39 +41,47 @@ app.use('/users', usersRouter);
 
 app.use(express.static('public'));
 
+
+//app.get('/', (req, res) => {
+//  res.status(500).send({err: 'something blew up'});
+//})
+
+
 // catch 404 and forward to error handler
-app.use((err, req, res, next) => {
+app.use((req, res, next) => {
   const err = new Error('Not Found');
-  err.status = 404;
+  res.locals.error = err;
+  res.status(404);
   err.message = "Oops! Unfortunately this page doesn't exist.";
-  res.render('page-not-found', { error });
+  res.render('page-not-found', { err });
   next(err);
 });
 
 // global error handler
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  //set locals, only providing error in development
+  //res.locals.message = err.message;
+  //res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
+  //render the error page
+  //res.status(err.status || 500);
 
 
-  if (res.status === false) {
-    res.status(500);
+  if (err.status === false) {
+    err.status(500);
   } else {
-    
+    err.status;
   }
 
   if (err.message === false) {
     err.message = "Sorry, it seems that there's an internal server error."
   } else {
-
-  }
+    err.message;
+  } 
   console.log(err.status);
   console.log(err.message);
-  res.render('error', { error } );
+  res.render('error', { err } );
+  
 });
 
 module.exports = app;
