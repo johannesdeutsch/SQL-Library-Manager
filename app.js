@@ -51,36 +51,32 @@ app.use(express.static('public'));
 app.use((req, res, next) => {
   const err = new Error('Not Found');
   res.locals.error = err;
-  res.status(404);
-  err.message = "Oops! Unfortunately this page doesn't exist.";
-  res.render('page-not-found', { err });
   next(err);
 });
 
 // global error handler
 app.use((err, req, res, next) => {
   //set locals, only providing error in development
-  //res.locals.message = err.message;
-  //res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   //render the error page
-  //res.status(err.status || 500);
+  res.status(err.status || 500);
 
-
-  if (err.status === false) {
-    err.status(500);
-  } else {
-    err.status;
-  }
-
-  if (err.message === false) {
+  if (err.status === 404) {
+    err.message = "Oops! Unfortunately this page doesn't exist.";
+    res.status(404).render('page-not-found', { err });
+  } else if (err.status === 500) {
     err.message = "Sorry, it seems that there's an internal server error."
+    res.status(500).render('error', { err } );
   } else {
-    err.message;
-  } 
+    const err = new Error('Something else went wrong')
+    err.message = err.message || 'Oops! Something went wrong.';
+    res.status(err.status).render('error', { err});
+  }
+ 
   console.log(err.status);
   console.log(err.message);
-  res.render('error', { err } );
   
 });
 
