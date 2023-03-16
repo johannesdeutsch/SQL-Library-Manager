@@ -4,7 +4,7 @@ var router = express.Router();
 const getBookModel = require('../models').Book;
 
 /* GET home page. */
-/* router.get('/', async ( req, res, next ) => {
+router.get('/', async ( req, res, next ) => {
   //res.render('index', { title: 'Express' });
   try {
     const books = await getBookModel.findAll();
@@ -14,6 +14,6 @@ const getBookModel = require('../models').Book;
     res.json({ error: err.message || err.toString() });
   }
 
-}); */
+}); 
 
 module.exports = router;

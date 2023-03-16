@@ -50,7 +50,8 @@ app.use(express.static('public'));
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
-  res.locals.error = err;
+  err.status = 404;
+  err.message = "Oops! Unfortunately this page doesn't exist.";
   next(err);
 });
 
@@ -64,13 +65,12 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
 
   if (err.status === 404) {
-    err.message = "Oops! Unfortunately this page doesn't exist.";
-    res.status(404).render('page-not-found', { err });
+    res.status(404).render('page-not-found', { err } );
   } else if (err.status === 500) {
-    err.message = "Sorry, it seems that there's an internal server error."
+    err.message = "Sorry, it seems that there's an internal server error.";
     res.status(500).render('error', { err } );
   } else {
-    const err = new Error('Something else went wrong')
+    const err = new Error('Something else went wrong');
     err.message = err.message || 'Oops! Something went wrong.';
     res.status(err.status).render('error', { err});
   }
