@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const getBookModel = require('../models').Book;
+const { Book } = require('../models');
 
 //Handler function
 function asyncHandler(callback) {
@@ -9,7 +9,7 @@ function asyncHandler(callback) {
     try {
       await callback(req, res, next) 
     } catch(error) {
-      res.status(500).send(error);
+      next(error);
     }
   }
 }
@@ -18,40 +18,32 @@ function asyncHandler(callback) {
 
 /* GET home page. */
 router.get('/', asyncHandler (async ( req, res, next ) => {
-  //res.render('index', { title: 'Express' });
   res.redirect('/books');
-  try {
-    const books = await getBookModel.findAll();
-    console.log(books);
-    res.json(books); 
-  } catch(err) {
-    res.json({ error: err.message || err.toString() });
-    console.log(err);
-  }
 }));   
 
 //shows the full list of books
 router.get('/books', asyncHandler (async (req, res) => {
   const booklist = await Book.findAll();
-  res.render('/index', { booklist });
+  res.render('/index', { booklist, pagetitle: "Books", pageheader: "Books"});
   console.log(booklist);
 }));
 
 // shows the create new book form
 router.get('/books/new', (req, res) => {
-  res.render('/new-book', { book });
+  res.render('/new-book', { pagetitle: "New Book", pageheader: "New Book" });
 }); 
 
 // posts a new book to the data base
 router.post('/books/new', asyncHandler (async (req, res) => {
   const newBook = await Book.create(req.body);
-  res.redirect('/books' + book.id);
+  res.redirect('/books' + newBook.id);
 }));
 
 //shows book detail form
 router.get('/books/:id', asyncHandler (async (req, res) => {
-  const bookdetailform = await Book.findByPk(req.params.id);
-  res.render('/update-book', { bookdetailform })
+  const book = await Book.findByPk(req.params.id);
+  console.log(book);
+  res.render('/update-book', { book, pageheader: "Update Book", pagetitle: book.title})
 }));
 
 //updates books info in the database

@@ -63,11 +63,11 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
 
   if (err.status === 404) {
-    res.status(404).render('page-not-found', { err } );
+    res.status(404).render('page-not-found', { err, pagetitle: err.status, pageheader: 'Page Not Found'} );
   } else {
     const err = new Error('Something went wrong');
     err.message = err.message || 'Oops! Something went wrong.';
-    res.status(err.status).render('error', { err } );
+    res.status(err.status).render('error', { err, pagetitle: err.status, pageheader: 'Server Error' });
   }
  
   console.log(err.status);

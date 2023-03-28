@@ -1,9 +1,7 @@
-doctype html
-head
-  title Page Not Found
-  link(rel='stylesheet' href='../public/stylesheets/style.css')
-h1= err.status
-    p= err.message
-    br
-    p
-        a.button(href='all_books.html') Home
+extends layout.pug
+
+block content
+  p= err.message
+  br
+  p
+    a.button(href='all_books.html') Home
