@@ -67,6 +67,7 @@ app.use((err, req, res, next) => {
   } else {
     const err = new Error('Something went wrong');
     err.message = err.message || 'Oops! Something went wrong.';
+    err.status = err.status || 500;
     res.status(err.status).render('error', { err, pagetitle: err.status, pageheader: 'Server Error' });
   }
  

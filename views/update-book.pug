@@ -1,22 +1,22 @@
 extends layout.pug
 
 block content
-  form(method='post' action='/books' + book.id + '/update-book')
+  form(method='post' action='/books')
     p
-      label(for= book.title)= book.title
-      input#title(name= book.title type='text' value= book.title)
+      label(for= data.dataValues.title)= data.dataValues.title
+      input#title(name= data.dataValues.title type='text' value= data.dataValues.title)
     p
-      label(for= book.author)= author.title
-      input#author(name= book.author type='text' value= book.author)
+      label(for= data.dataValues.author)= data.dataValues.title
+      input#author(name= data.dataValues.author type='text' value= data.dataValues.author)
     p
-      label(for= book.genre)= book.genre
-      input#genre(name= book.genre type='text' value= book.genre)
+      label(for= data.dataValues.genre)= data.dataValues.genre
+      input#genre(name= data.dataValues.genre type='text' value= data.dataValues.genre)
     p
-      label(for= book.year)= book.year
-      input#year(name= book.year type='text' value= book.year)
+      label(for= data.dataValues.year)= data.dataValues.year
+      input#year(name= data.dataValues.year type='text' value= data.dataValues.year)
     p
       input(type='submit' value='Update Book')
-  form(method='post' action='/books/:id/delete' + book.id + '/update-book' onsubmit="return confirm('Do you really want to delete this book?');")
+  form(method='post' action='/books/:id/delete' + data.dataValues.id + '/update-book' onsubmit="return confirm('Do you really want to delete this book?');")
     p
       a.button(href='all_books.html') Cancel
     p

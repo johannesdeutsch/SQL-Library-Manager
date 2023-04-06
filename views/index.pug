@@ -12,93 +12,10 @@ block content
                 th Genre
                 th Year
         tbody
+        each book in data
             tr
                 td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
-            tr
-                td
-                    a(href='/update-book/' + book.id)= booklist.title
-                td= booklist.author
-                td= booklist.genre
-                td= booklist.year
+                    a(href='/books/' + book.dataValues.id)= book.dataValues.title
+                td= book.dataValues.author
+                td= book.dataValues.genre
+                td= book.dataValues.year         
