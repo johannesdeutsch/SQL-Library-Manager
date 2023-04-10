@@ -1,7 +1,7 @@
 extends layout.pug
 
 block content
-    form
+    form(method='post' action='/books/new')
         h2.error Oooops!
         ul.error
             li Title is required

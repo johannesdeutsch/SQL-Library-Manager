@@ -1,7 +1,7 @@
 extends layout.pug
 
 block content
-  form(method='post' action='/books/')
+  form(method='post' action=`/books/${data.dataValues.id}`)
     p
       label(for= 'title') Title
       input#title(name='title' type='text' value=`${data.dataValues.title}`)
