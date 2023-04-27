@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { Book } = require('../models');
+const { Op } = require("sequelize");
 
 //Handler function
 function asyncHandler(callback) {
@@ -30,9 +31,9 @@ router.get('/books', asyncHandler (async (req, res) => {
 
 //searches for a specific book
 router.post('/books/search/:term', asyncHandler (async (req, res) => {
-  let term  = req.body.query.toLowerCase();
-  const searchbooks = await Book.findAll({ where: { [Op.or] : [{title: term}, {author: term}, {genre: term}, {year: term}]}});
-  res.render('index', {data: searchbooks})
+  let { term }  = req.body.query;
+  const searchbooks = await Book.findAll({ where: { [Op.or] : [{title: {[Op.like]: `%${term}%`}}, {author: {[Op.like]: `%${term}%`}}, {genre: {[Op.like]: `%${term}%`}}, {year: {[Op.like]: `%${term}%`}}]}});
+  res.render('index', {data: searchbooks});
   console.log(searchbooks);
 }));
 
