@@ -28,6 +28,15 @@ router.get('/books', asyncHandler (async (req, res) => {
   console.log(booklist);
 }));
 
+//searches for a specific book
+router.post('/books/search/:term', asyncHandler (async (req, res) => {
+  let term  = req.body.query.toLowerCase();
+  const searchbooks = await Book.findAll({ where: { [Op.or] : [{title: term}, {author: term}, {genre: term}, {year: term}]}});
+  res.render('index', {data: searchbooks})
+  console.log(searchbooks);
+}));
+
+
 // shows the create new book form
 router.get('/books/new', (req, res) => {
   res.render('new-book', { pagetitle: "New Book", pageheader: "New Book" });

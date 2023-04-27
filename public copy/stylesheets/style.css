@@ -24,6 +24,7 @@ a.button, input[type=submit] {
   cursor: pointer;
 }
 
+
 form a.button, input[type=submit] {
   margin-left: 140px;
   transition: 0.4s;
@@ -87,7 +88,7 @@ input {
   transition: 0.4s;
 }
 
-input[type=text] {
+input[type='text'] {
   margin-left: 7px;
   width: 300px;
 }

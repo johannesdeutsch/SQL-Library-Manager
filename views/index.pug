@@ -3,7 +3,11 @@ extends layout.pug
 block content
     p
         a.button(href='/books/new') Create New Book
-    
+
+        form(id='search-form' method='post' action='/search/:term')
+            input(type='text' name='term' placeholder='Search...')
+            a.button(type='submit') Search
+
     table
         thead
             tr
