@@ -31,14 +31,17 @@ router.get('/books', asyncHandler (async (req, res) => {
 
 //searches for a specific book
 router.get('/books/search', asyncHandler (async (req, res) => {
-  if (term === true) {
-  let term  = req.query.term;
-  const searchbooks = await Book.findAll({ where: { [Op.or] : [{title: {[Op.like]: `%${term}%`}}, {author: {[Op.like]: `%${term}%`}}, {genre: {[Op.like]: `%${term}%`}}, {year: {[Op.like]: `%${term}%`}}]}});
-  res.render('index', {data: searchbooks, query: term, pagetitle: "Books", pageheader: "Books"});
-  console.log(searchbooks);
-  } else if (err) {
-    res.status(404).render('page-not-found', { err, pagetitle: err.status, pageheader: 'Page Not Found'} )
-  }
+    try {
+      let term  = req.query.term;
+      const searchbooks = await Book.findAll({ where: { [Op.or] : [{title: {[Op.like]: `%${term}%`}}, {author: {[Op.like]: `%${term}%`}}, {genre: {[Op.like]: `%${term}%`}}, {year: {[Op.like]: `%${term}%`}}]}});
+      res.render('index', {data: searchbooks, query: term, pagetitle: "Books", pageheader: "Books"});
+      console.log(searchbooks); 
+      if (!searchbooks) {
+        res.status(404).render('page-not-found', { err, pagetitle: err.status, pageheader: 'Page Not Found'});
+      }
+    } catch (error) {
+      res.status(404).render('page-not-found', { err, pagetitle: err.status, pageheader: 'Page Not Found'});
+    }
 }));
 
 
