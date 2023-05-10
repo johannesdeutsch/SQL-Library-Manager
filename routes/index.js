@@ -24,24 +24,16 @@ router.get('/', asyncHandler (async ( req, res, next ) => {
 
 //shows the full list of books
 router.get('/books', asyncHandler (async (req, res) => {
-  const booklist = await Book.findAll(req.body);
+  const booklist = await Book.findAll(req.body, {limit: 15, offset: 0});
   res.render('index', { data: booklist, pagetitle: "Books", pageheader: "Books"});
   console.log(booklist);
 }));
 
 //searches for a specific book
 router.get('/books/search', asyncHandler (async (req, res) => {
-  //  try {
-      let term  = req.query.term;
-      const searchbooks = await Book.findAll({ where: { [Op.or] : [{title: {[Op.like]: `%${term}%`}}, {author: {[Op.like]: `%${term}%`}}, {genre: {[Op.like]: `%${term}%`}}, {year: {[Op.like]: `%${term}%`}}]}});
-      res.render('index', {data: searchbooks, query: term, pagetitle: "Books", pageheader: "Books"});
-      //console.log(searchbooks); 
-      //if (!searchbooks) {
-        //res.status(404).render('page-not-found', { err, pagetitle: err.status, pageheader: 'Page Not Found'});
-      //}
-   // } catch (error) {
-     // res.status(404).render('page-not-found', { err, pagetitle: err.status, pageheader: 'Page Not Found'});
-   // }
+  let term  = req.query.term;
+  const searchbooks = await Book.findAll({ where: { [Op.or] : [{title: {[Op.like]: `%${term}%`}}, {author: {[Op.like]: `%${term}%`}}, {genre: {[Op.like]: `%${term}%`}}, {year: {[Op.like]: `%${term}%`}}]}});
+  res.render('index', {data: searchbooks, query: term, pagetitle: "Books", pageheader: "Books"});
 }));
 
 

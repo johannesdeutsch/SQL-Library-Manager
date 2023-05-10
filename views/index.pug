@@ -6,7 +6,7 @@ block content
 
         form(id='search-form' method='get' action='/books/search')
             input(type='text' name='term' placeholder='Search...')
-            a.button(type='submit') Search
+            input.button(type='submit' value='Search')
 
     table
         thead
@@ -22,4 +22,12 @@ block content
                     a(href='/books/' + book.dataValues.id)= book.dataValues.title
                 td= book.dataValues.author
                 td= book.dataValues.genre
-                td= book.dataValues.year         
+                td= book.dataValues.year
+
+    .pagination
+        a.prev(href='#') &laquo; Back &nbsp;
+        a.page.active(href='#') 1 &nbsp;
+        a.page(href='#') 2 &nbsp;
+        a.page(href='#') 3 &nbsp;
+        a.next(href='#') Next &raquo; &nbsp;
+         
