@@ -26,15 +26,14 @@ router.get('/', asyncHandler (async ( req, res, next ) => {
 router.get('/books', asyncHandler (async (req, res) => {
   let offset = (req.query.page - 1) * 5;
   let request = req.body;
-  const booklist = await Book.findAndCountAll({
+  const { count, rows } = await Book.findAndCountAll({
     where: {
       request
     },
-    limit: 15, 
+    limit: 10, 
     offset
   });
-  res.render('index', { data: booklist, pagetitle: "Books", pageheader: "Books"});
-  console.log(booklist);
+  res.render('index', { data: count, data: rows, pagetitle: "Books", pageheader: "Books"});
 }));
 
 //searches for a specific book
