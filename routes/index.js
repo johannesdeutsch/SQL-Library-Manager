@@ -24,7 +24,15 @@ router.get('/', asyncHandler (async ( req, res, next ) => {
 
 //shows the full list of books
 router.get('/books', asyncHandler (async (req, res) => {
-  const booklist = await Book.findAll(req.body, {limit: 15, offset: 0});
+  let offset = (req.query.page - 1) * 5;
+  let request = req.body;
+  const booklist = await Book.findAndCountAll({
+    where: {
+      request
+    },
+    limit: 15, 
+    offset
+  });
   res.render('index', { data: booklist, pagetitle: "Books", pageheader: "Books"});
   console.log(booklist);
 }));
