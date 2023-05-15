@@ -24,16 +24,17 @@ router.get('/', asyncHandler (async ( req, res, next ) => {
 
 //shows the full list of books
 router.get('/books', asyncHandler (async (req, res) => {
-  let offset = (req.query.page - 1) * 5;
+  let page = parseInt(req.query.page);
+  let perPage = parseInt(req.query.perPage)
   let request = req.body;
   const { count, rows } = await Book.findAndCountAll({
     where: {
       request
     },
-    limit: 10, 
-    offset
+    limit: perPage, 
+    offset: perPage * (page - 1),
   });
-  res.render('index', { data: count, data: rows, pagetitle: "Books", pageheader: "Books"});
+  res.render('index', { data: { count, rows }, pagetitle: "Books", pageheader: "Books"});
 }));
 
 //searches for a specific book
