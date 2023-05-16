@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { Book } = require('../models');
 const { Op } = require("sequelize");
+const book = require('../models/book');
 
 //Handler function
 function asyncHandler(callback) {
@@ -24,12 +25,12 @@ router.get('/', asyncHandler (async ( req, res, next ) => {
 
 //shows the full list of books
 router.get('/books', asyncHandler (async (req, res) => {
-
-    const booklist = await Book.findAndCountAll({
+    const { count, rows } = await Book.findAndCountAll({
       limit: 15,
       offset: (req.query.page - 1) * 5,
     });
-    res.render('index', { data: booklist, pagetitle: "Books", pageheader: "Books"});
+    let pages = Math.ceil(data.count / 5);
+    res.render('index', { data: { count, rows }, pagetitle: "Books", pageheader: "Books"});
 
 }));
 
