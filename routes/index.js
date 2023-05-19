@@ -25,12 +25,20 @@ router.get('/', asyncHandler (async ( req, res, next ) => {
 
 //shows the full list of books
 router.get('/books', asyncHandler (async (req, res) => {
-    const { count, rows } = await Book.findAndCountAll({
-      limit: 15,
-      offset: (req.query.page - 1) * 5,
-    });
-    let pages = Math.ceil(data.count / 5);
-    res.render('index', { data: { count, rows }, pagetitle: "Books", pageheader: "Books"});
+  
+  let errorCase;
+
+  req.query.page ? req.query.page = Number(req.query.page) : (req.query.page = errorCase);
+  
+  if (errorCase) {
+    res.Status(400)
+  }
+  
+  const { count, rows } = await Book.findAndCountAll({
+    limit: 10,
+    offset: (req.query.page - 1) * 5,
+  });
+  res.render('index', { data: { count, rows }, pagetitle: "Books", pageheader: "Books"});
 
 }));
 
