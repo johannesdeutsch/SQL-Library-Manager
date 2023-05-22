@@ -32,14 +32,13 @@ router.get('/books', asyncHandler (async (req, res) => {
   
   if (errorCase) {
     res.Status(400)
-  }
-  
-  const { count, rows } = await Book.findAndCountAll({
+  } else {
+    const { count, rows } = await Book.findAndCountAll({
     limit: 10,
-    offset: (req.query.page - 1) * 5,
-  });
-  res.render('index', { data: { count, rows }, pagetitle: "Books", pageheader: "Books"});
-
+    offset: (Number(req.query.page) - 1) * 5,
+    });
+    res.render('index', { data: { count, rows }, pagetitle: "Books", pageheader: "Books"});
+  }
 }));
 
 //searches for a specific book
