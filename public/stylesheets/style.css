@@ -109,8 +109,10 @@ input.newbook[type='text'] {
 }
 
 .pagination {
-  padding: 40px;
-  display: block;
-  width: 70px;
-  margin: auto;
+  display: flex;
+}
+
+a.button[type='button'] {
+  margin-left: 5px;
+  margin-bottom: 50px;
 }
